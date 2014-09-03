@@ -4,7 +4,6 @@
 import csv
 import argparse
 import os.path
-from urllib.parse import *
 
 def main():
 
@@ -148,14 +147,15 @@ class TableProcessor:
         return [text1, text2, error]
         
     def linkOutput(self, link):
-        up = urlparse(link)
+        pq = link.split('?')
+        path = pq[0]
+        allquery = pq[1]
         query = []
-        for q in up.query.split('&'):
+        for q in allquery.split('&'):
             if not q.startswith( self.linkBadQuery ):
                 query.append( q )
-        result = up.path
         if len(query):
-            result += "?" + "&".join(query)
-        return [ result ]
+            path += "?" + "&".join(query)
+        return [ path ]
 
 if __name__ == '__main__': main()
