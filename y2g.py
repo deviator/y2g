@@ -149,13 +149,14 @@ class TableProcessor:
     def linkOutput(self, link):
         pq = link.split('?')
         path = pq[0]
-        allquery = pq[1]
-        query = []
-        for q in allquery.split('&'):
-            if not q.startswith( self.linkBadQuery ):
-                query.append( q )
-        if len(query):
-            path += "?" + "&".join(query)
+        if len(pq) > 1:
+            allquery = pq[1]
+            query = []
+            for q in allquery.split('&'):
+                if not q.startswith( self.linkBadQuery ):
+                    query.append( q )
+            if len(query):
+                path += "?" + "&".join(query)
         return [ path ]
 
 if __name__ == '__main__': main()
