@@ -128,20 +128,21 @@ class TableProcessor:
 
     def titleOutput(self, title):
         error = ""
-        if( len(title) > self.maxTitleLen ):
+        if len(title) > self.maxTitleLen:
             error = "title length > %s"%self.maxTitleLen
         return [title, error]
 
     def textOutput(self, text):
+        text = text.replace("!",".")
         spl = text.split()
         text1 = ""
-        while( len(text1) + len(spl[0]) < self.maxTextLen ):
+        while (len(spl) > 0) and (len(text1) + len(spl[0]) < self.maxTextLen):
             text1 += " " + spl[0]
             spl = spl[1:]
 
         text2 = " ".join(spl)
         error = ""
-        if( len(text2) > self.maxTextLen ):
+        if len(text2) > self.maxTextLen:
             error = "text2 length > %s"%self.maxTextLen
 
         return [text1, text2, error]
